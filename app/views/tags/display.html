@@ -1,0 +1,23 @@
+*{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
+ 
+<div class="transco ${_as == 'teaser' ? 'teaser' : ''}">
+    <h2 class="transco-title">
+        <a href="@{Application.show(_transco.id)}">${_transco.srcUrl}</a>
+    </h2>
+    <div class="transco-metadata">
+        <span class="transco-author">by ${_transco.author.fullname}</span>,
+        <span class="transco-date">${_transco.postedAt.format('dd MMM yy')}</span>
+    </div>
+    #{if _as != 'teaser'}
+        <div class="transco-content">
+            <div class="about">Detail: </div>
+            ${_transco.description.nl2br()}
+        </div>
+    #{/if}
+</div>
+ 
+#{if _as == 'full'}
+    <div class="comments">
+        
+    </div>
+#{/if}

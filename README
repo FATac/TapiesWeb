@@ -1,0 +1,6 @@
+Standalone transcoding module
+
+NOTES:
+
+All dependencies MUST be added to lib/ 
+

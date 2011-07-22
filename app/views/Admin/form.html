@@ -1,0 +1,136 @@
+#{extends 'admin.html' /}
+
+#{ifnot transco?.id} 
+	<h3>Write, <span>a new transcodification</span></h3>
+#{/ifnot}
+#{else}
+	<h3>Edit, <span>this transco</span></h3>
+#{/else}
+
+
+
+#{form @save(transco?.id), enctype:'multipart/form-data'}
+ 
+    #{ifErrors}
+        <p class="error">
+            Please correct these errors.
+        </p>
+    #{/ifErrors}
+
+
+     
+    #{field 'transco.srcUrl'}
+    <p>
+        <label>Source File:</label>
+        <input type="text" name="${field.name}" 
+            value="${transco?.srcUrl}" 
+	    class="${field.errorClass}" 
+	/>
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+    
+    #{field 'transco.dstUrl'}
+    <p>
+        <label>Destination File:</label>
+        <input type="text" name="${field.name}" 
+            value="${transco?.dstUrl}" 
+	    class="${field.errorClass}" 
+	/>
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+    
+    #{field 'transco.profile'}
+    <p>
+    	<label>Profile:</label>
+		#{select 'profile'}
+			#{list items:profileNames, as:'tmp'}
+				<option value="${tmp}">
+					${tmp}
+				</option> 
+			#{/list} 
+		#{/select}
+	</p>
+	
+	<div id='customprofile'><p>
+    	<label>Container:</label>
+		<select name="container" id="container" 
+		data-url='@{Admin.listCodecs()}'>
+			#{list items:containers, as:'tmp'}
+				<option value="${tmp}">
+					${tmp}
+				</option> 
+			#{/list}
+		</select>	
+	</div>
+	
+	<div id='videoconfig'></div>
+	<div id='audioconfig'></div>
+	
+	#{/field}
+	
+    #{field 'transco.description'}
+    <p>
+        <label>Description here:</label>
+        <textarea name="${field.name}" 
+            class="${field.errorClass}">${transco?.description}</textarea>
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+    
+    <p>
+        <input type="submit" value="Publish this transcodification" />
+    </p>
+
+#{/form}
+
+#{set 'moreScripts'}
+<script>
+
+    $(document).ready(function() {
+
+        $('#container').change(function () {
+           	var selected = $("#container").find(':selected').text();
+			var serverURL = $("#container").data('url');
+						
+			$.getJSON(serverURL, 
+					{
+						container: selected
+					},
+					function(data) {
+						$("#videoconfig").empty();
+
+						if(data.hasVideo) {
+							var str = '<label>Video codec:</label><select name="videocodec" id="videocodec"></select>';
+							str += '<label>Video bitrate:</label><input type="text" name="vbitrate"></input>';
+							str += '<label>Video height:</label><input type="text" name="vheight"></input>';
+							str += '<label>Video width:</label><input type="text" name="vwidth"></input>';		
+							$("#videoconfig").append(str);
+						}
+
+						$("#audioconfig").empty();						
+						if(data.hasAudio) {
+							var str2 = '<label>Audio codec:</label><select name="audiocodec" id="audiocodec"></select>';
+							str2 += '<label>Audio channels:</label><input type="text" name="achannels"></input>';
+							str2 += '<label>Audio bitrate:</label><input type="text" name="abitrate"></input>';
+							str2 += '<label>Audio sample rate:</label><input type="text" name="asamplerate"></input>';
+							str2 += '<label>Audio frequency:</label><input type="text" name="afrequency"></input>';
+							$("#audioconfig").append(str2);
+						}
+
+						$("#videocodec").empty();
+						$.each(data.videoCodecs, function(index, item) {
+							$("#videocodec").append(new Option(item, item));
+						});
+						$("#audiocodec").empty();
+						$.each(data.audioCodecs, function(index, item) {
+							$("#audiocodec").append(new Option(item, item));
+						});
+			});
+			
+		});
+    });
+ 
+</script>
+#{/set}

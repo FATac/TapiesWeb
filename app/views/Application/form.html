@@ -1,0 +1,43 @@
+#{extends 'main.html' /}
+
+#{form @save()}
+ 
+#{ifErrors}
+        <span class="error">Check the errors</span>
+#{/ifErrors}
+
+     
+    #{field 'user.fullname'}
+    <p>
+        <label>Full name:</label>
+        <input type="text" name="${field.name}"
+            value="${user?.fullname}" 
+	    class="${field.errorClass}" />
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'user.password'}
+    <p>
+        <label>Password:</label>
+        <input type="password" name="${field.name}"
+            value="${user?.password}" 
+	    class="${field.errorClass}" />
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+
+    #{field 'user.email'}
+    <p>
+        <label>Email:</label>
+        <input type="text" name="${field.name}" 
+            value="${user?.email}" 
+	    class="${field.errorClass}" />
+	<span>${field.error}</span>
+    </p>
+    #{/field}
+    <p>
+        <input type="submit" value="Register" />
+    </p>
+    
+#{/form	}

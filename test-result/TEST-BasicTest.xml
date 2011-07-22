@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0.027" errors="0" skipped="0" tests="4" name="BasicTest">
+  <testcase classname="BasicTest" name="createAndRetrieveUser" time="0.01">
+      </testcase>
+  <testcase classname="BasicTest" name="tryConnectAsUser" time="0.005">
+      </testcase>
+  <testcase classname="BasicTest" name="createTranscodification" time="0.007">
+      </testcase>
+  <testcase classname="BasicTest" name="createProfile" time="0.005">
+      </testcase>
+</testsuite>

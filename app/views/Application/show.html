@@ -1,0 +1,22 @@
+#{extends 'main.html' /}
+#{set title:transco.srcUrl /}
+
+<ul id="pagination">
+    #{if transco.previous()}
+        <li id="previous">
+            <a href="@{Application.show(transco.previous().id)}">
+                ${transco.previous().srcUrl}
+            </a>
+        </li>
+    #{/if}
+    #{if transco.next()}
+        <li id="next">
+            <a href="@{Application.show(transco.next().id)}">
+                ${transco.next().srcUrl}
+            </a>
+        </li>
+    #{/if}
+</ul>
+
+ 
+#{display transco:transco, as:'full' /}

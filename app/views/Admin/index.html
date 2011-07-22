@@ -1,0 +1,14 @@
+#{extends 'admin.html' /}
+
+<h3>Welcome ${user}, <span>you have done ${myTranscos.size() ?: 'no'} 
+${myTranscos.pluralize('transcodification', 'transcodifications')} so far</span></h3>
+
+#{list items:myTranscos, as:'transco'}
+    <p class="transco ${transco_parity}">
+	<a href="@{Admin.form(transco.id)}">${transco.srcUrl}</a>
+    </p>
+#{/list}
+ 
+<p id="newTransco" >
+    <a href="@{form()}"><span>+</span>New transcodification</a>
+</p>

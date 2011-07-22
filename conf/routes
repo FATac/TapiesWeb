@@ -1,0 +1,35 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET		/                                       Application.index
+
+# Import Secure routes
+*		/										module:secure
+
+# Register a new User
+GET		/register								Application.form
+POST	/register								Application.save
+
+# Admin routes
+GET		/admin/?								Admin.index
+*		/admin									module:crud
+
+GET		/admin/myTranscos/{id}					Admin.form
+GET		/admin/new								Admin.form
+
+POST	/admin/myTranscos/{id}					Admin.save
+POST	/admin/new								Admin.save
+
+# Show a Transcodifications
+GET		/showTransco/{id}						Application.show
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

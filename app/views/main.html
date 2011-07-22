@@ -1,0 +1,42 @@
+<!DOCTYPE html >
+<html>
+    <head>
+        <title>#{get 'title' /}</title>		
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" type="text/css" media="screen" 
+            href="@{'/public/stylesheets/main.css'}" />
+        <link rel="shortcut icon" type="image/png" 
+            href="@{'/public/images/favicon.png'}" />
+    </head>
+    <body>
+        
+        <div id="header">
+            <div id="logo">
+                ¿Transcoder?
+            </div>
+            <ul id="tools">
+		<li>
+		   <a href="@{form()}">Register</a>
+		</li>
+                <li>
+                    <a href="@{Admin.index()}">Log in</a>
+                </li>
+            </ul>
+            <div id="title">
+                <span class="about">About this service</span>
+                <h1><a href="@{Application.index()}">${transcoderTitle}</a></h1>
+                <h2>${transcoderBaseline}</h2>
+            </div>
+        </div>
+        
+        <div id="main">
+            #{doLayout /} 
+        </div>
+        
+        <p id="footer">
+            Transcoding engine built with the 
+            <a href="http://www.playframework.org">Play framework</a>
+        </p>
+        
+    </body>
+</html>

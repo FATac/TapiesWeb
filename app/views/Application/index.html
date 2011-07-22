@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{if lastTranscos.size()}
+	<div class="transcos">
+		<h3>Last transcodifications</h3>
+		#{list items:lastTranscos, as:'t'}
+			#{display transco:t, as:'teaser' /}
+		#{/list}
+	</div>
+#{/if}
+#{else}
+	<div class="empty">
+		There are no transcodifications
+	</div>
+#{/else}
